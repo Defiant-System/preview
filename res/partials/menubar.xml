@@ -1,0 +1,40 @@
+<MenuBar>
+	<Menu name="Preview">
+		<Menu name="About Preview"/>
+		<Menu type="divider"/>
+		<Menu name="Preferences"/>
+		<Menu type="divider"/>
+		<Menu name="Emptry Trash"/>
+		<Menu type="divider"/>
+		<Menu name="Services">
+			<Menu name="Open"/>
+			<Menu name="Close"/>
+		</Menu>
+		<Menu type="divider"/>
+		<Menu name="Hide Preview"/>
+		<Menu name="Hide Others"/>
+		<Menu name="Show All" disabled="1"/>
+		<Menu type="divider"/>
+		<Menu name="Quit Preview" shell="win -c"/>
+	</Menu>
+	<Menu name="View">
+		<Menu name="Hide Sidebar" toggle_false="Show Sidebar" click="toggle-sidebar-view"/>
+		<Menu type="divider"/>
+		<Menu name="Actual Size" click="content-zoom-reset"/>
+		<Menu name="Zoom In" click="content-zoom-in"/>
+		<Menu name="Zoom Out" click="content-zoom-out"/>
+		<Menu type="divider"/>
+		<Menu name="Hide Toolbar" toggle_true="Show Toolbar" click="toggle-toolbar"/>
+	</Menu>
+	<Menu name="Window">
+		<Menu name="Minimize" shell="win -s min"/>
+		<Menu name="Maximize" shell="win -s max"/>
+		<Menu type="divider"/>
+		<Menu name="Close Window" shell="win -c"/>
+	</Menu>
+	<Menu name="Help">
+		<Menu name="Send Preview Feedback"/>
+		<Menu type="divider"/>
+		<Menu name="License"/>
+	</Menu>
+</MenuBar>

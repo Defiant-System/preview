@@ -1,0 +1,157 @@
+
+@sidebar-speed: 280ms;
+
+&.focused {
+	sidebar {
+		> div.toc {
+			.thumb {
+				&.selected {
+					box-shadow: 0 0 0 7px rgba(0,0,0,0.1);
+
+					&:after {
+						background: #36b;
+						color: #fff;
+					}
+				}
+			}
+		}
+	}
+}
+
+layout {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+}
+
+sidebar {
+	width: 180px;
+	.transitionWhat(width, @sidebar-speed * 0.75);
+
+	&.hidden {
+		width: 0;
+
+		&:after {
+			border-color: transparent;
+		}
+		> div.toc {
+			
+		}
+	}
+
+
+	> div.toc {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		width: 180px;
+		overflow-y: auto;
+		padding: 21px 0;
+		text-align: center;
+
+		.thumb {
+			position: relative;
+			display: inline-block;
+			width: 73%;
+			margin: 0 0 43px;
+			border-radius: 1px;
+			border: 1px solid rgba(0,0,0,0.25);
+
+			&:after {
+				content: attr(data-page-number);
+				position: absolute;
+				bottom: -27px;
+				left: 50%;
+				padding: 3px 3px 2px;
+				border-radius: 3px;
+				transform: translateX(-50%);
+			}
+
+			&.selected {
+				box-shadow: 0 0 0 7px rgba(0,0,0,0.05);
+
+				&:after {
+					background: rgba(0,0,0,0.15);
+				}
+			}
+
+			img {
+				background: #fff;
+				border-radius: inherit;
+				width: 100%;
+				height: 100%;
+				pointer-events: none;
+			}
+		}
+	}
+}
+
+content {
+	background: #eee;
+	flex: 1;
+	overflow: auto;
+	padding: 0 13px;
+	scroll-behavior: smooth;
+
+	.page {
+		position: relative;
+		margin: 13px auto;
+		text-align: center;
+		border-radius: 2px;
+
+		&.loading {
+			canvas {
+				//opacity: 0;
+			}
+			> svg {
+				display: block;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				width: 50px;
+				height: 50px;
+				transform: translateX( -50% ) translateY( -50% );
+				--color-1: #ddd;
+				--stroke-width: 5px;
+			}
+		}
+
+		canvas {
+			display: inline-block;
+			border-radius: inherit;
+			margin-bottom: -2px;
+			background: #fff;
+			box-shadow: 0 0 9px rgba(0,0,0,0.15);
+			.transition(@sidebar-speed * 0.75);
+		}
+		> div {
+			position: absolute;
+			top: 2px;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			overflow: hidden;
+			opacity: 0.2;
+			line-height: 1.02;
+
+			> span {
+				color: transparent;
+				position: absolute;
+				white-space: pre;
+				transform-origin: 0% 0%;
+				cursor: text;
+
+				&::selection {
+					background: #09f;
+				}
+			}
+		}
+		svg {
+			display: none;
+		}
+	}
+}

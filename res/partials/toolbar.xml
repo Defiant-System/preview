@@ -1,0 +1,12 @@
+<ToolBar>
+	<Group width="71%">
+		<Tool symbol="icon-sidebar" click="toggle-sidebar-view"/>
+		<Options>
+			<Tool symbol="icon-search-minus" click="content-zoom-out"/>
+			<Tool symbol="icon-search-plus" click="content-zoom-in"/>
+		</Options>
+	</Group>
+	<Group width="29%">
+		<Search placeholder="Search"/>
+	</Group>
+</ToolBar>

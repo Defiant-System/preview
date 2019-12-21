@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0">
+	<svg id="icon-sidebar" viewBox="0 0 500 500">
+		<path fill="var(--color-1)" d="M480,40H20C8.954,40,0,48.954,0,60v380c0,11.046,8.954,20,20,20h460c11.046,0,20-8.954,20-20V60 C500,48.954,491.046,40,480,40z M40,80h120v340H40V80z M460,420H200V80h260V420z"/>
+		<rect fill="var(--color-1)" x="70" y="120" width="50" height="50"/>
+		<rect fill="var(--color-1)" x="70" y="210" width="50" height="50"/>
+	</svg>
+
+	<svg id="icon-search-minus" viewBox="0 0 500 500">
+		<path fill="var(--color-1)" d="M312.214,358.796c-32.353,23.053-71.94,36.612-114.691,36.612c-109.275,0-197.861-88.584-197.861-197.859
+			c0-109.277,88.586-197.862,197.861-197.862c109.275,0,197.859,88.585,197.859,197.862c0,42.751-13.559,82.338-36.61,114.691
+			l130.001,130.001c12.807,12.81,12.698,33.3-0.005,46.006l-0.547,0.546c-12.67,12.674-33.303,12.709-46.005,0.004L312.214,358.796
+			L312.214,358.796z M197.522,348.854c83.563,0,151.305-67.743,151.305-151.304c0-83.564-67.742-151.308-151.305-151.308
+			c-83.564,0-151.307,67.744-151.307,151.308C46.216,281.11,113.958,348.854,197.522,348.854L197.522,348.854z"/>
+		<rect fill="var(--color-1)" x="95.01" y="181.775" width="208.453" height="36.723"/>
+	</svg>
+
+	<svg id="icon-search-plus" viewBox="0 0 500 500">
+		<path fill="var(--color-1)" d="M312.214,358.796c-32.353,23.053-71.94,36.612-114.691,36.612c-109.275,0-197.861-88.584-197.861-197.859
+			c0-109.277,88.586-197.862,197.861-197.862c109.275,0,197.859,88.585,197.859,197.862c0,42.751-13.559,82.338-36.61,114.691
+			l130.001,130.001c12.807,12.81,12.698,33.3-0.005,46.006l-0.547,0.546c-12.67,12.674-33.303,12.709-46.005,0.004L312.214,358.796
+			L312.214,358.796z M197.522,348.854c83.563,0,151.305-67.743,151.305-151.304c0-83.564-67.742-151.308-151.305-151.308
+			c-83.564,0-151.307,67.744-151.307,151.308C46.216,281.11,113.958,348.854,197.522,348.854L197.522,348.854z"/>
+		<rect fill="var(--color-1)" x="95.01" y="181.775" width="208.453" height="36.723"/>
+		<rect fill="var(--color-1)" x="180.875" y="95.91" width="36.723" height="208.453"/>
+	</svg>
+
+	<svg id="svg-loading" viewBox="0 0 50 50" nocache="1">
+		<style>
+			.svg-loading-group {
+				animation: svg-loading 3s linear infinite;
+				transform-origin: 50% 50%;
+			}
+			.svg-loading-path {
+				stroke-width: var(--stroke-width);
+				stroke: transparent;
+				fill: transparent;
+			}
+			.svg-loading-inner {
+				stroke-dashoffset: 100;
+				stroke-dasharray: 100;
+				stroke-width: var(--stroke-width);
+				stroke-linecap: round;
+				stroke: var(--color-1);
+				animation: svg-loading-circle 3s linear infinite;
+				fill: transparent;
+			}
+			@keyframes svg-loading {
+				0%   { transform: rotate( 0deg ); }
+				100% { transform: rotate( 360deg ); }
+			}
+			@keyframes svg-loading-circle {
+				0%   { stroke-dashoffset: 200; }
+				100% { stroke-dashoffset: -200; }
+			}
+		</style>
+		<g class="svg-loading-group">
+			<circle class="svg-loading-path" cx="25" cy="25" r="20"/>
+			<circle class="svg-loading-inner" cx="25" cy="25" r="20"/>
+		</g>
+	</svg>
+
+</svg>
