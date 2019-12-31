@@ -29,7 +29,7 @@ layout {
 
 sidebar {
 	width: 180px;
-	.transitionWhat(width, @sidebar-speed * 0.75);
+	transition: width, @sidebar-speed * 0.75;
 
 	&.hidden {
 		width: 0;
@@ -126,7 +126,7 @@ content {
 			margin-bottom: -2px;
 			background: #fff;
 			box-shadow: 0 0 9px rgba(0,0,0,0.15);
-			.transition(@sidebar-speed * 0.75);
+			transition: all @sidebar-speed * 0.75;
 		}
 		> div {
 			position: absolute;

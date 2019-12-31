@@ -1,6 +1,6 @@
 
 let pdfjsLib = defiant.import("./modules/pdf.min.js")
-pdfjsLib.GlobalWorkerOptions.workerSrc = "/app/preview/res/workers/pdf.worker.min.js";
+pdfjsLib.GlobalWorkerOptions.workerSrc = "~/workers/pdf.worker.min.js";
 
 //console.log(pdfjsLib.AnnotationLayer);
 
