@@ -2,10 +2,10 @@
 import sideBar from "./modules/sideBar"
 import contentView from "./modules/contentView"
 
-const manual = {
+const preview = {
 	init() {
-		sideBar.init(manual, contentView);
-		contentView.init(manual, sideBar);
+		sideBar.init(preview, contentView);
+		contentView.init(preview, sideBar);
 	},
 	async dispatch(event) {
 		let data,
@@ -28,4 +28,4 @@ const manual = {
 	}
 };
 
-window.exports = manual;
+window.exports = preview;
