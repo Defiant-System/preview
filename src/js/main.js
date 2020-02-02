@@ -1,14 +1,15 @@
 
-import sideBar from "./modules/sideBar"
-import contentView from "./modules/contentView"
+import * as PDF from "./pdfjs/pdf.js"
+PDF.GlobalWorkerOptions.workerSrc = "~/pdf.worker.js"
 
 const preview = {
 	init() {
-		sideBar.init(preview, contentView);
-		contentView.init(preview, sideBar);
+		this.sideBar.init();
+		this.contentView.init(PDF);
 	},
 	async dispatch(event) {
-		let data,
+		let self = preview,
+			data,
 			isOn;
 		switch (event.type) {
 			case "toggle-toolbar":
@@ -20,12 +21,14 @@ const preview = {
 			case "content-zoom-out":
 			case "content-zoom-in":
 			case "content-zoom-reset":
-				return contentView.dispatch(data || event);
+				return self.contentView.dispatch(data || event);
 			case "toggle-sidebar-view":
 			case "sidebar-select-thumbnail":
-				return sideBar.dispatch(event);
+				return self.sideBar.dispatch(event);
 		}
-	}
+	},
+	contentView: ant_require("contentView.js"),
+	sideBar: ant_require("sideBar.js")
 };
 
 window.exports = preview;

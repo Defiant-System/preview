@@ -25,6 +25,29 @@ layout {
 	right: 0;
 	bottom: 0;
 	display: flex;
+
+	&.empty1 {
+		content {
+			&:before {
+				content: "Drop PDF file here";
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translateX(-50%) translateY(-50%);
+				padding: 21px 37px;
+				font-size: 37px;
+				color: #ccc;
+				text-shadow: 0 -1px 0 rgba(#000, .2),
+							 0 1px 0 rgba(#fff, .7);
+				border: 3px dashed #ddd;
+				border-radius: 13px;
+			}
+
+			canvas {
+				display: none;
+			}
+		}
+	}
 }
 
 sidebar {

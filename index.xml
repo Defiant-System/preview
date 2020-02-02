@@ -1,22 +1,23 @@
 <Application>
+	<Build>
+		<task action="skip" source="src/js/pdfjs/pdf.worker.js" destination="public/pdf.worker.js"/>
+	</Build>
 	<Head>
 		<meta name="id" value="preview"/>
-		<meta name="title" value="Preview" version="1.0"/>
+		<meta name="title" value="Preview" version="1.3"/>
 		<meta name="author" value="Hakan Bilgin" namespace="ant"/>
 		<meta name="license" value="AGPL-3.0-or-later"/>
 		<meta name="width" value="830"/>
 		<meta name="height" value="990"/>
-		<meta name="top" value="150"/>
+		<meta name="top" value="30"/>
 		<meta name="left" value="260"/>
 		<meta name="minimize"/>
 		<meta name="maximize"/>
 		<meta name="resize"/>
 		<meta name="script" value="src/js/main.js"/>
-		<!--<meta name="workers" value="src/workers/"/>-->
 		<meta name="style" value="src/css/main.less"/>
 		<meta name="icons" value="src/svg/icons.svg"/>
 		<meta name="content" value="src/partials/content.htm"/>
-		<meta name="xsl" value="src/partials/templates.xsl"/>
 		
 		@import "src/partials/toolbar.xml"
 		@import "src/partials/menubar.xml"

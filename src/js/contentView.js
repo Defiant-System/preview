@@ -1,19 +1,9 @@
 
-// let pdfjsLib = defiant.import("./modules/pdf.min.js")
-// pdfjsLib.GlobalWorkerOptions.workerSrc = "~/workers/pdf.worker.min.js";
+// preview.contentView
 
-//console.log(pdfjsLib.AnnotationLayer);
-
-let preview;
-let sidebar;
-let pdf;
-
-let contentView = {
-	init(_preview, _sidebar) {
-		// fast and direct references
-		preview = _preview;
-		sidebar = _sidebar;
-
+{
+	init(PDF) {
+		this.PDF = PDF;
 		this.content = window.find("content");
 		this.page = this.content.find(".page:first");
 		this.zoomReset =
@@ -23,7 +13,9 @@ let contentView = {
 		this.content.on("scroll", this.dispatch.bind(this));
 	},
 	async dispatch(event) {
-		let el,
+		let self = preview.contentView,
+			sideBar = preview.sideBar,
+			el,
 			text,
 			page,
 			viewport,
@@ -55,7 +47,7 @@ let contentView = {
 				});
 				if (this.suppressEventLoop && this.suppressEventLoop !== event.target.scrollTop) return;
 				delete this.suppressEventLoop;
-				sidebar.dispatch({type: "update-active-page", pageNum});
+				sideBar.dispatch({type: "update-active-page", pageNum});
 				break;
 			// custom events
 			case "scroll-to-page":
@@ -66,13 +58,13 @@ let contentView = {
 			case "open.file":
 				let file = await event.open(),
 					data = file.text;
-				pdf = await pdfjsLib.getDocument({ data }).promise;
+				pdf = await self.PDF.getDocument({ data }).promise;
 
 				// clear all but one page
 				this.page.nextAll(".page").remove();
 
-				// render sidebar thumbnails
-				sidebar.dispatch({type: "render-thumbnails", pdf});
+				// render sideBar thumbnails
+				sideBar.dispatch({type: "render-thumbnails", pdf});
 				
 				// render first page
 				await this.dispatch({
@@ -115,7 +107,7 @@ let contentView = {
 
 				// the text layer
 				textContent = await page.getTextContent();
-				pdfjsLib.renderTextLayer({
+				self.PDF.renderTextLayer({
 					textContent,
 					viewport,
 					container: event.page.getElementsByTagName("div")[0],
@@ -153,6 +145,4 @@ let contentView = {
 				break;
 		}
 	}
-};
-
-export default contentView;
+}

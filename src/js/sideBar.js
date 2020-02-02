@@ -1,19 +1,16 @@
 
-let preview;
-let contentView;
-let selectedPage = 0;
+// preview.sideBar
 
-let sideBar = {
-	init(_preview, _contentView) {
-		// fast and direct references
-		preview = _preview;
-		contentView = _contentView;
-
+{
+	init() {
 		this.toc = window.find("sidebar > .toc");
 		this.thumbWidth = this.toc.prop("offsetWidth") * 0.73;
+		this.selectedPage = 0;
 	},
 	async dispatch(event) {
-		let el,
+		let self = preview.sideBar,
+			contentView = preview.contentView,
+			el,
 			pEl,
 			isOn;
 		switch (event.type) {
@@ -32,11 +29,11 @@ let sideBar = {
 				contentView.dispatch({type: "scroll-to-page", pageNum: selectedPage});
 				break;
 			case "update-active-page":
-				if (event.pageNum === selectedPage) return;
+				if (event.pageNum === self.selectedPage) return;
 				this.toc.find(".selected").removeClass("selected");
 
 				this.toc.find(`.thumb:nth-child(${event.pageNum + 1})`).addClass("selected");
-				selectedPage = event.pageNum;
+				self.selectedPage = event.pageNum;
 				break;
 			case "render-thumbnails":
 				let pdf = event.pdf;
@@ -65,6 +62,4 @@ let sideBar = {
 				break;
 		}
 	}
-};
-
-export default sideBar;
+}
