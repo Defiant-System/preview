@@ -27,8 +27,8 @@ const preview = {
 				return self.sideBar.dispatch(event);
 		}
 	},
-	contentView: ant_require("contentView.js"),
-	sideBar: ant_require("sideBar.js")
+	contentView: defiant.require("contentView.js"),
+	sideBar:     defiant.require("sideBar.js")
 };
 
 window.exports = preview;
