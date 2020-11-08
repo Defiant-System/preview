@@ -7,6 +7,7 @@
 		<meta name="title" value="Preview" version="1.3"/>
 		<meta name="author" value="Hakan Bilgin" namespace="ant"/>
 		<meta name="license" value="AGPL-3.0-or-later"/>
+		<meta name="repository" value="https://github.com/Defiant-System/preview"/>
 		<meta name="width" value="830"/>
 		<meta name="height" value="990"/>
 		<meta name="top" value="30"/>
