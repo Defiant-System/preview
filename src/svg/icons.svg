@@ -24,7 +24,7 @@
 		<rect fill="var(--color-1)" x="180.875" y="95.91" width="36.723" height="208.453"/>
 	</svg>
 
-	<svg id="svg-loading" viewBox="0 0 50 50" nocache="1">
+	<svg id="svg-loading" viewBox="0 0 50 50" cache="false">
 		<style>
 			.svg-loading-group {
 				animation: svg-loading 3s linear infinite;
