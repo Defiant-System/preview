@@ -10,6 +10,7 @@
 	async dispatch(event) {
 		let self = preview.sideBar,
 			contentView = preview.contentView,
+			selectedPage,
 			el,
 			pEl,
 			isOn;
@@ -18,7 +19,7 @@
 				pEl = this.toc.parents("sidebar");
 				isOn = pEl.hasClass("hidden");
 				pEl.toggleClass("hidden", isOn);
-				return isOn ? "toggle_true" : "toggle_false";
+				return isOn;
 			case "sidebar-select-thumbnail":
 				el = $(event.target);
 				if (!el.hasClass("thumb")) return;

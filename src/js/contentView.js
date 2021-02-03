@@ -9,12 +9,16 @@
 		this.zoomReset =
 		this.pageWidth = this.page.prop("offsetWidth");
 
+		this.files = [];
+
 		// bind event handlers
 		this.content.on("scroll", this.dispatch.bind(this));
 	},
 	async dispatch(event) {
-		let self = preview.contentView,
-			sideBar = preview.sideBar,
+		let APP = preview,
+			Self = APP.contentView,
+			sideBar = APP.sideBar,
+			pdf,
 			el,
 			text,
 			page,
@@ -56,39 +60,44 @@
 				this.content.scrollTop(this.suppressEventLoop);
 				break;
 			case "open.file":
-				let file = await event.open(),
-					data = file.text;
-				pdf = await self.PDF.getDocument({ data }).promise;
+				// Files.open(event.path);
+				event.open({ responseType: "arrayBuffer" })
+					.then(async file => {
+						let pdf = await Self.PDF.getDocument({ data: file.arrayBuffer }).promise;
+						Self.files.push(pdf);
 
-				// clear all but one page
-				this.page.nextAll(".page").remove();
+						// clear all but one page
+						Self.page.nextAll(".page").remove();
 
-				// render sideBar thumbnails
-				sideBar.dispatch({type: "render-thumbnails", pdf});
-				
-				// render first page
-				await this.dispatch({
-					type: "render-page",
-					page: this.page[0],
-					pageNum: 1
-				});
+						// render sideBar thumbnails
+						sideBar.dispatch({type: "render-thumbnails", pdf});
 
-				let pages = Array.from({length: pdf.numPages - 1});
-				pages.map(p => {
-					let clone = this.page.after(this.page.clone("true")).addClass("loading");
-					clone.append(`<svg><use href="#preview-svg-loading"></use></svg>`);
-					clone.find("> div").html("");
-				});
+						// render first page
+						await Self.dispatch({
+							type: "render-page",
+							page: Self.page[0],
+							pageNum: 1
+						});
 
-				// save reference to all pages
-				this.pages = this.content.find(".page");
+						let pages = Array.from({length: pdf.numPages - 1});
+						pages.map(p => {
+							let clone = Self.page.after(Self.page.clone("true")).addClass("loading");
+							clone.append(`<svg><use href="#preview-svg-loading"></use></svg>`);
+							clone.find("> div").html("");
+						});
 
-				// trigger scroll event to check if other pages are in view => rendering
-				this.content.trigger("scroll");
+						// save reference to all pages
+						Self.pages = Self.content.find(".page");
 
-				//this.dispatch({type: "content-zoom-out", page: this.page[0], pageNum: 1});
+						// trigger scroll event to check if other pages are in view => rendering
+						Self.content.trigger("scroll");
+
+						//Self.dispatch({type: "content-zoom-out", page: Self.page[0], pageNum: 1});
+					});
 				break;
 			case "render-page":
+				// select pdf file
+				pdf = Self.files[0];
 				// Fetch the page
 				page = await pdf.getPage(event.pageNum);
 				viewport = page.getViewport({ scale: this.pageWidth / page.getViewport({scale: 1}).width });
@@ -107,7 +116,7 @@
 
 				// the text layer
 				textContent = await page.getTextContent();
-				self.PDF.renderTextLayer({
+				Self.PDF.renderTextLayer({
 					textContent,
 					viewport,
 					container: event.page.getElementsByTagName("div")[0],
@@ -116,6 +125,9 @@
 			case "content-zoom-reset":
 			case "content-zoom-out":
 			case "content-zoom-in":
+				// select pdf file
+				pdf = Self.files[0];
+
 				this.pageWidth *= (event.type === "content-zoom-out") ? 0.8 : 1.25;
 				if (event.type === "content-zoom-reset") {
 					this.pageWidth = this.zoomReset;
