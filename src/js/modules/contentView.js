@@ -9,7 +9,7 @@
 		this.zoomReset =
 		this.pageWidth = this.page.prop("offsetWidth");
 
-		this.files = [];
+		this.file;
 
 		// bind event handlers
 		this.content.on("scroll", this.dispatch.bind(this));
@@ -59,47 +59,41 @@
 				this.suppressEventLoop = top - 10;
 				this.content.scrollTop(this.suppressEventLoop);
 				break;
-			case "open.file":
-				// Files.open(event.path);
-				event.open({ responseType: "arrayBuffer" })
-					.then(async file => {
-						let pdf = await Self.PDF.getDocument({ data: file.arrayBuffer }).promise;
-						Self.files.push(pdf);
+			case "open-file":
+				let pdf = await Self.PDF.getDocument({ data: event.file.arrayBuffer }).promise;
+				Self.file = pdf;
 
-						// clear all but one page
-						Self.page.nextAll(".page").remove();
+				// clear all but one page
+				Self.page.nextAll(".page").remove();
 
-						// render sideBar thumbnails
-						sideBar.dispatch({type: "render-thumbnails", pdf});
+				// render sideBar thumbnails
+				sideBar.dispatch({type: "render-thumbnails", pdf});
 
-						// render first page
-						await Self.dispatch({
-							type: "render-page",
-							page: Self.page[0],
-							pageNum: 1
-						});
+				// render first page
+				await Self.dispatch({
+					type: "render-page",
+					page: Self.page[0],
+					pageNum: 1
+				});
 
-						let pages = Array.from({length: pdf.numPages - 1});
-						pages.map(p => {
-							let clone = Self.page.after(Self.page.clone("true")).addClass("loading");
-							clone.append(`<svg><use href="#preview-svg-loading"></use></svg>`);
-							clone.find("> div").html("");
-						});
+				let pages = Array.from({length: pdf.numPages - 1});
+				pages.map(p => {
+					let clone = Self.page.after(Self.page.clone("true")).addClass("loading");
+					clone.append(`<svg><use href="#preview-svg-loading"></use></svg>`);
+					clone.find("> div").html("");
+				});
 
-						// save reference to all pages
-						Self.pages = Self.content.find(".page");
+				// save reference to all pages
+				Self.pages = Self.content.find(".page");
 
-						// trigger scroll event to check if other pages are in view => rendering
-						Self.content.trigger("scroll");
+				// trigger scroll event to check if other pages are in view => rendering
+				Self.content.trigger("scroll");
 
-						//Self.dispatch({type: "content-zoom-out", page: Self.page[0], pageNum: 1});
-					});
+				//Self.dispatch({type: "content-zoom-out", page: Self.page[0], pageNum: 1});
 				break;
 			case "render-page":
-				// select pdf file
-				pdf = Self.files[0];
 				// Fetch the page
-				page = await pdf.getPage(event.pageNum);
+				page = await Self.file.getPage(event.pageNum);
 				viewport = page.getViewport({ scale: this.pageWidth / page.getViewport({scale: 1}).width });
 
 				// Prepare canvas using PDF page dimensions
@@ -125,9 +119,6 @@
 			case "content-zoom-reset":
 			case "content-zoom-out":
 			case "content-zoom-in":
-				// select pdf file
-				pdf = Self.files[0];
-
 				this.pageWidth *= (event.type === "content-zoom-out") ? 0.8 : 1.25;
 				if (event.type === "content-zoom-reset") {
 					this.pageWidth = this.zoomReset;
@@ -139,7 +130,7 @@
 					if (~pageEl.className.indexOf("loading")) return;
 
 					// Fetch the page
-					page = await pdf.getPage(index+1);
+					page = await Self.file.getPage(index+1);
 					viewport = page.getViewport({ scale: this.pageWidth / page.getViewport({scale: 1}).width });
 
 					// Prepare canvas using PDF page dimensions

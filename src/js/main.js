@@ -9,7 +9,9 @@ const preview = {
 			layout: window.find("layout"),
 			blankView: window.find(".blank-view"),
 			toolbar: {
-				sidebar: window.find(`.toolbar-tool_[data-click="toggle-sidebar"]`),
+				sidebar: window.find(`.toolbar-tool_[data-click="toggle-sidebar-view"]`),
+				zoomIn: window.find(`.toolbar-tool_[data-click="content-zoom-in"]`),
+				zoomOut: window.find(`.toolbar-tool_[data-click="content-zoom-out"]`),
 			}
 		};
 		// init all sub-objects
@@ -31,10 +33,24 @@ const preview = {
 				Self.dispatch({ type: "reset-app" });
 				break;
 			case "open.file":
+				if (event.file) {
+					Self.contentView.dispatch({ ...event, type: "open-file" });
+				} else {
+					// Files.open(event.path);
+					event.open({ responseType: "arrayBuffer" })
+						.then(file => Self.contentView.dispatch({ type: "open-file", file }));
+				}
+				// set up workspace
+				Self.dispatch({ type: "setup-workspace" });
 				break;
 			// custom events
 			case "open-file":
 				window.dialog.open({ pdf: item => Self.dispatch(item) });
+				break;
+			case "setup-workspace":
+				// hide blank view
+				Self.els.layout.removeClass("show-blank-view");
+				// TODO: enable & click on show sidebar
 				break;
 			case "reset-app":
 				// show blank view

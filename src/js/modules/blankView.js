@@ -19,9 +19,6 @@
 	dispatch(event) {
 		let APP = preview,
 			Self = APP.blankView,
-			file,
-			name,
-			value,
 			el;
 		// console.log(event);
 		switch (event.type) {
@@ -34,13 +31,17 @@
 			case "select-sample":
 				el = $(event.target);
 				if (!el.hasClass("sample")) return;
-				console.log( el );
-				// opening image file from application package
-				// Files.openLocal(el.data("url"))
-				// 	.then(file => {
-				// 		// forward event to app
-				// 		APP.dispatch({ type: "prepare-file", isSample: true, file })
-				// 	});
+
+				let url = el.data("url"),
+					parts = url.slice(url.lastIndexOf("/") + 1),
+					[ name, kind ] = parts.split("."),
+					file = new defiant.File({ name, kind });
+				// fetch file
+				window.fetch(url, { responseType: "arrayBuffer" })
+					.then(file => {
+						// forward event to app
+						APP.dispatch({ type: "open.file", file });
+					});
 				break;
 		}
 	}
