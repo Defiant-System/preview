@@ -17,7 +17,7 @@
 		<Menu name="Minimize" shell="win -s min"/>
 		<Menu name="Maximize" shell="win -s max"/>
 		<Menu type="divider"/>
-		<Menu name="Close Window" shell="win -c"/>
+		<Menu name="Close File" click="close-file"/>
 	</Menu>
 	<Menu name="Help">
 		<Menu name="Send Preview Feedback"/>

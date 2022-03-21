@@ -1,34 +1,70 @@
 
 import * as PDF from "./pdfjs/pdf.js"
-PDF.GlobalWorkerOptions.workerSrc = "~/pdf.worker.js"
+PDF.GlobalWorkerOptions.workerSrc = "~/js/pdf.worker.js"
 
 const preview = {
 	init() {
-		this.sideBar.init();
-		this.contentView.init(PDF);
+		// fast references
+		this.els = {
+			layout: window.find("layout"),
+			blankView: window.find(".blank-view"),
+			toolbar: {
+				sidebar: window.find(`.toolbar-tool_[data-click="toggle-sidebar"]`),
+			}
+		};
+		// init all sub-objects
+		Object.keys(this)
+			.filter(i => typeof this[i].init === "function")
+			.map(i => this[i].init(PDF));
 	},
 	async dispatch(event) {
-		let self = preview,
-			data,
-			isOn;
+		let Self = preview,
+			file,
+			name,
+			value,
+			pEl,
+			el;
 		switch (event.type) {
-			case "toggle-toolbar":
-				isOn = window.el.hasClass("has_ToolBar");
-				window.el.toggleClass("has_ToolBar", isOn);
-				return isOn ? "toggle_true" : "toggle_false";
+			// system events
+			case "window.init":
+				// reset app by default - show initial view
+				Self.dispatch({ type: "reset-app" });
+				break;
 			case "open.file":
-			case "content-toggle-lights":
-			case "content-zoom-out":
-			case "content-zoom-in":
-			case "content-zoom-reset":
-				return self.contentView.dispatch(data || event);
-			case "toggle-sidebar-view":
-			case "sidebar-select-thumbnail":
-				return self.sideBar.dispatch(event);
+				break;
+			// custom events
+			case "open-file":
+				window.dialog.open({ pdf: item => Self.dispatch(item) });
+				break;
+			case "reset-app":
+				// show blank view
+				Self.els.layout.addClass("show-blank-view");
+				break;
+			case "toggle-toolbar":
+				value = window.el.hasClass("has_ToolBar");
+				window.el.toggleClass("has_ToolBar", value);
+				return value ? "toggle_true" : "toggle_false";
+			// case "content-toggle-lights":
+			// case "content-zoom-out":
+			// case "content-zoom-in":
+			// case "content-zoom-reset":
+			// 	return Self.contentView.dispatch(data || event);
+			// case "toggle-sidebar-view":
+			// case "sidebar-select-thumbnail":
+			// 	return Self.sideBar.dispatch(event);
+			default:
+				if (event.el) {
+					pEl = event.el.parents(`div[data-area]`);
+					if (pEl.length) {
+						name = pEl.data("area");
+						Self[name].dispatch(event);
+					}
+				}
 		}
 	},
-	contentView: @import "contentView.js",
-	sideBar:     @import "sideBar.js"
+	blankView:   @import "modules/blankView.js",
+	contentView: @import "modules/contentView.js",
+	sideBar:     @import "modules/sideBar.js",
 };
 
 window.exports = preview;

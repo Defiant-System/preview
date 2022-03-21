@@ -10,8 +10,8 @@
 		<meta name="repository" value="https://github.com/Defiant-System/preview"/>
 		<meta name="width" value="830"/>
 		<meta name="height" value="990"/>
-		<meta name="top" value="30"/>
-		<meta name="left" value="260"/>
+		<meta name="top" value="40"/>
+		<meta name="left" value="280"/>
 		<meta name="minimize"/>
 		<meta name="maximize"/>
 		<meta name="resize"/>
@@ -19,8 +19,12 @@
 		<meta name="style" value="src/css/main.less"/>
 		<meta name="icons" value="src/svg/icons.svg"/>
 		<meta name="content" value="src/partials/content.htm"/>
+		<meta name="xsl" value="src/partials/templates.xsl"/>
 		
 		@import "src/partials/toolbar.xml"
 		@import "src/partials/menubar.xml"
 	</Head>
+
+	@import "src/partials/data.xml"
+	
 </Application>
