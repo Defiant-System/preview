@@ -17,7 +17,7 @@
 	async dispatch(event) {
 		let APP = preview,
 			Self = APP.contentView,
-			sideBar = APP.sideBar,
+			sidebar = APP.sidebar,
 			pdf,
 			el,
 			text,
@@ -51,7 +51,7 @@
 				});
 				if (this.suppressEventLoop && this.suppressEventLoop !== event.target.scrollTop) return;
 				delete this.suppressEventLoop;
-				sideBar.dispatch({type: "update-active-page", pageNum});
+				sidebar.dispatch({type: "update-active-page", pageNum});
 				break;
 			// custom events
 			case "scroll-to-page":
@@ -66,8 +66,8 @@
 				// clear all but one page
 				Self.page.nextAll(".page").remove();
 
-				// render sideBar thumbnails
-				sideBar.dispatch({type: "render-thumbnails", pdf});
+				// render sidebar thumbnails
+				sidebar.dispatch({type: "render-thumbnails", pdf});
 
 				// render first page
 				await Self.dispatch({

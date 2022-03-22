@@ -1,5 +1,5 @@
 
-// preview.sideBar
+// preview.sidebar
 
 {
 	init() {
@@ -8,8 +8,9 @@
 		this.selectedPage = 0;
 	},
 	async dispatch(event) {
-		let self = preview.sideBar,
-			contentView = preview.contentView,
+		let APP = preview,
+			Self = APP.sidebar,
+			contentView = APP.contentView,
 			selectedPage,
 			el,
 			pEl,
@@ -30,11 +31,11 @@
 				contentView.dispatch({type: "scroll-to-page", pageNum: selectedPage});
 				break;
 			case "update-active-page":
-				if (event.pageNum === self.selectedPage) return;
+				if (event.pageNum === Self.selectedPage) return;
 				this.toc.find(".selected").removeClass("selected");
 
 				this.toc.find(`.thumb:nth-child(${event.pageNum + 1})`).addClass("selected");
-				self.selectedPage = event.pageNum;
+				Self.selectedPage = event.pageNum;
 				break;
 			case "render-thumbnails":
 				let pdf = event.pdf;

@@ -16,9 +16,9 @@
 			target: preview.els.blankView
 		});
 
-		setTimeout(() => {
-			this.els.el.find(".sample:nth(0)").trigger("click");
-		}, 700);
+		// temp
+		setTimeout(() => this.els.el.find(".sample:nth(0)").trigger("click"), 200);
+		setTimeout(() => preview.els.toolbar.sidebar.trigger("click"), 700);
 	},
 	dispatch(event) {
 		let APP = preview,

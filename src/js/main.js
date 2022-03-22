@@ -50,7 +50,10 @@ const preview = {
 			case "setup-workspace":
 				// hide blank view
 				Self.els.layout.removeClass("show-blank-view");
-				// TODO: enable & click on show sidebar
+				// enable tools & click on show sidebar
+				Self.els.toolbar.zoomIn.removeClass("tool-disabled_");
+				Self.els.toolbar.zoomOut.removeClass("tool-disabled_");
+				Self.els.toolbar.sidebar.removeClass("tool-disabled_");
 				break;
 			case "reset-app":
 				// show blank view
@@ -65,12 +68,11 @@ const preview = {
 			// case "content-zoom-in":
 			// case "content-zoom-reset":
 			// 	return Self.contentView.dispatch(data || event);
-			// case "toggle-sidebar-view":
-			// case "sidebar-select-thumbnail":
-			// 	return Self.sideBar.dispatch(event);
+			case "toggle-sidebar-view":
+				return Self.sidebar.dispatch(event);
 			default:
 				if (event.el) {
-					pEl = event.el.parents(`div[data-area]`);
+					pEl = event.el.data("area") ? event.el : event.el.parents(`[data-area]`);
 					if (pEl.length) {
 						name = pEl.data("area");
 						Self[name].dispatch(event);
@@ -80,7 +82,7 @@ const preview = {
 	},
 	blankView:   @import "modules/blankView.js",
 	contentView: @import "modules/contentView.js",
-	sideBar:     @import "modules/sideBar.js",
+	sidebar:     @import "modules/sidebar.js",
 };
 
 window.exports = preview;
