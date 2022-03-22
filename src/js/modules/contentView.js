@@ -63,6 +63,9 @@
 				let pdf = await Self.PDF.getDocument({ data: event.file.arrayBuffer }).promise;
 				Self.file = pdf;
 
+				// set up workspace
+				APP.dispatch({ type: "setup-workspace" });
+
 				// clear all but one page
 				Self.page.nextAll(".page").remove();
 

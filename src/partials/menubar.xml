@@ -2,6 +2,8 @@
 	<Menu name="Preview">
 		<Menu name="About Preview" shell="win -a"/>
 		<Menu type="divider"/>
+		<Menu name="Close File" click="close-file"/>
+		<Menu type="divider"/>
 		<Menu name="Quit Preview" shell="win -c"/>
 	</Menu>
 	<Menu name="View">
@@ -12,12 +14,6 @@
 		<Menu name="Zoom Out" click="content-zoom-out"/>
 		<Menu type="divider"/>
 		<Menu name="Hide Toolbar" toggle_true="Show Toolbar" click="toggle-toolbar"/>
-	</Menu>
-	<Menu name="Window">
-		<Menu name="Minimize" shell="win -s min"/>
-		<Menu name="Maximize" shell="win -s max"/>
-		<Menu type="divider"/>
-		<Menu name="Close File" click="close-file"/>
 	</Menu>
 	<Menu name="Help">
 		<Menu name="Send Preview Feedback"/>

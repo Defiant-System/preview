@@ -3,7 +3,8 @@
 
 {
 	init() {
-		this.toc = window.find("sidebar > .toc");
+		this.el = window.find("sidebar");
+		this.toc = this.el.find("> .toc");
 		this.thumbWidth = this.toc.prop("offsetWidth") * 0.73;
 		this.selectedPage = 0;
 	},
@@ -16,6 +17,9 @@
 			pEl,
 			isOn;
 		switch (event.type) {
+			// case "reset-sidebar-view":
+			// 	this.toc.html();
+			// 	break;
 			case "toggle-sidebar-view":
 				pEl = this.toc.parents("sidebar");
 				isOn = pEl.hasClass("hidden");
@@ -60,7 +64,7 @@
 								<img src="${cvs.toDataURL()}"/>
 							</div>`;
 				}));
-				this.toc.append(thumbnails.join(""));
+				this.toc.html(thumbnails.join(""));
 				break;
 		}
 	}

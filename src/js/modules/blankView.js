@@ -17,7 +17,7 @@
 		});
 
 		// temp
-		setTimeout(() => this.els.el.find(".sample:nth(0)").trigger("click"), 200);
+		setTimeout(() => this.els.el.find(".sample:nth(1)").trigger("click"), 200);
 		setTimeout(() => preview.els.toolbar.sidebar.trigger("click"), 700);
 	},
 	dispatch(event) {
@@ -42,10 +42,8 @@
 					file = new defiant.File({ name, kind });
 				// fetch file
 				window.fetch(url, { responseType: "arrayBuffer" })
-					.then(file => {
-						// forward event to app
-						APP.dispatch({ type: "open.file", file });
-					});
+					// forward event to app
+					.then(file => APP.dispatch({ type: "open.file", file }));
 				break;
 		}
 	}

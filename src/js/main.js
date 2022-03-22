@@ -18,6 +18,8 @@ const preview = {
 		Object.keys(this)
 			.filter(i => typeof this[i].init === "function")
 			.map(i => this[i].init(PDF));
+
+		// setTimeout(() => this.dispatch({ type: "content-toggle-lights" }), 1500);
 	},
 	async dispatch(event) {
 		let Self = preview,
@@ -32,6 +34,9 @@ const preview = {
 				// reset app by default - show initial view
 				Self.dispatch({ type: "reset-app" });
 				break;
+			case "window.resize":
+				// console.log(window.innerWidth);
+				break;
 			case "open.file":
 				if (event.file) {
 					Self.contentView.dispatch({ ...event, type: "open-file" });
@@ -40,12 +45,24 @@ const preview = {
 					event.open({ responseType: "arrayBuffer" })
 						.then(file => Self.contentView.dispatch({ type: "open-file", file }));
 				}
-				// set up workspace
-				Self.dispatch({ type: "setup-workspace" });
 				break;
 			// custom events
 			case "open-file":
 				window.dialog.open({ pdf: item => Self.dispatch(item) });
+				break;
+			case "close-file":
+				// hide sidebar, if needed
+				if (!Self.sidebar.el.hasClass("hidden")) {
+					Self.els.toolbar.sidebar
+						.prop({ className: "toolbar-tool_" })
+						.trigger("click");
+				}
+				// enable tools & click on show sidebar
+				Self.els.toolbar.zoomIn.addClass("tool-disabled_");
+				Self.els.toolbar.zoomOut.addClass("tool-disabled_");
+				Self.els.toolbar.sidebar.addClass("tool-disabled_");
+				// show blank view
+				Self.els.layout.addClass("show-blank-view");
 				break;
 			case "setup-workspace":
 				// hide blank view
@@ -60,14 +77,13 @@ const preview = {
 				Self.els.layout.addClass("show-blank-view");
 				break;
 			case "toggle-toolbar":
-				value = window.el.hasClass("has_ToolBar");
-				window.el.toggleClass("has_ToolBar", value);
+				value = window.el.hasClass("has-ToolBar_");
+				window.el.toggleClass("has-ToolBar_", value);
 				return value ? "toggle_true" : "toggle_false";
-			// case "content-toggle-lights":
-			// case "content-zoom-out":
-			// case "content-zoom-in":
-			// case "content-zoom-reset":
-			// 	return Self.contentView.dispatch(data || event);
+			case "content-zoom-out":
+			case "content-zoom-in":
+			case "content-zoom-reset":
+				return Self.contentView.dispatch(event);
 			case "toggle-sidebar-view":
 				return Self.sidebar.dispatch(event);
 			default:
