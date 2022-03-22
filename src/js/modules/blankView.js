@@ -17,8 +17,8 @@
 		});
 
 		// temp
-		setTimeout(() => this.els.el.find(".sample:nth(1)").trigger("click"), 200);
-		setTimeout(() => preview.els.toolbar.sidebar.trigger("click"), 700);
+		// setTimeout(() => this.els.el.find(".sample:nth(1)").trigger("click"), 200);
+		// setTimeout(() => preview.els.toolbar.sidebar.trigger("click"), 700);
 	},
 	dispatch(event) {
 		let APP = preview,

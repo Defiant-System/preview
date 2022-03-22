@@ -18,8 +18,6 @@ const preview = {
 		Object.keys(this)
 			.filter(i => typeof this[i].init === "function")
 			.map(i => this[i].init(PDF));
-
-		// setTimeout(() => this.dispatch({ type: "content-toggle-lights" }), 1500);
 	},
 	async dispatch(event) {
 		let Self = preview,
