@@ -15,6 +15,10 @@
 			match: `//Data`,
 			target: preview.els.blankView
 		});
+
+		setTimeout(() => {
+			this.els.el.find(".sample:nth(0)").trigger("click");
+		}, 700);
 	},
 	dispatch(event) {
 		let APP = preview,
