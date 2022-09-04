@@ -41,7 +41,7 @@
 				// fetch file
 				window.fetch(url, { responseType: "arrayBuffer" })
 					// forward event to app
-					.then(file => APP.dispatch({ type: "open.file", file }));
+					.then(file => APP.spawn.dispatch({ type: "open.file", spawn: Spawn, file }));
 				break;
 		}
 	}

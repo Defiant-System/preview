@@ -5,6 +5,12 @@ class Tabs {
 		this._spawn = spawn;
 		this._stack = {};
 		this._active = null;
+
+		// DOM template
+		let template = spawn.find(`.page`);
+		this._content = spawn.find(`layout > content`);
+		this._template = template.clone(true);
+		template.remove();
 	}
 
 	get file() {
@@ -22,8 +28,7 @@ class Tabs {
 			tName = file ? file.base : "Blank",
 			tabEl = this._spawn.tabs.add(tName, tId),
 			bodyEl = this._template.clone(),
-			history = new window.History,
-			sidebar = false;
+			history = new window.History;
 
 		// add element to DOM + append file contents
 		bodyEl.attr({ "data-id": tId });
@@ -32,7 +37,7 @@ class Tabs {
 		if (file._file) file.bodyEl = bodyEl;
 
 		// save reference to tab
-		this._stack[tId] = { tId, tabEl, bodyEl, history, file, sidebar };
+		this._stack[tId] = { tId, tabEl, bodyEl, history, file };
 		// focus on file
 		this.focus(tId);
 	}
