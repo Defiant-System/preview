@@ -49,14 +49,13 @@ layout {
 
 
 .file {
-	// background: #eee;
-	position: relative;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 	display: flex;
-	flex: 1;
-	overflow: auto;
-	padding: 0 13px;
-	scroll-behavior: smooth;
-
+	
 	&.hidden {
 		display: none;
 	}
@@ -157,13 +156,21 @@ layout {
 	}
 
 	content {
+		background: #eee;
 		position: relative;
-		margin: 13px auto;
-		text-align: center;
-		border-radius: 2px;
-		display: block;
+		// display: flex;
+		// flex: 1;
+		overflow: auto;
+		padding: 0 13px;
+		scroll-behavior: smooth;
 
 		.page {
+			position: relative;
+			margin: 13px auto;
+			text-align: center;
+			border-radius: 2px;
+			display: block;
+			
 			canvas {
 				width: 100%;
 				display: inline-block;
@@ -181,7 +188,7 @@ layout {
 				right: 0;
 				bottom: 0;
 				overflow: hidden;
-				opacity: 0.2;
+				// opacity: 0.2;
 				line-height: 1.02;
 
 				> span {

@@ -12,18 +12,8 @@ class File {
 					this._pdf = pdf;
 					// reset DOM element
 					this._el.removeClass("loading").find("svg").remove();
-
-					// render sidebar thumbnails
-					preview.spawn.sidebar.dispatch({
-						type: "render-thumbnails",
-						file: this,
-					});
-
-					preview.spawn.contentView.dispatch({
-						type: "render-page",
-						file: this,
-						pageNum: 1
-					});
+					// initiate file in content view
+					preview.spawn.contentView.dispatch({ type: "init-file", file: this });
 				});
 				break;
 		}
