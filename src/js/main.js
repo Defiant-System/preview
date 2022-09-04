@@ -16,6 +16,8 @@ const preview = {
 		switch (event.type) {
 			// system events
 			case "window.init":
+				spawn = window.open(event.id || "spawn");
+				Self.spawn.dispatch({ ...event, type: "spawn.init", spawn });
 				break;
 			case "open.file":
 				spawn = window.open("spawn");

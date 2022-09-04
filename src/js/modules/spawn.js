@@ -21,13 +21,14 @@
 				// init blank view
 				Self.blankView.dispatch({ ...event, type: "init-blank-view" });
 
-				// Spawn.find("layout").addClass("show-blank-view");
 
 				// temp
 				// setTimeout(() => Self.dispatch({ type: "tab.new", spawn: Spawn }), 300);
 				break;
 			case "spawn.init":
 				Self.dispatch({ ...event, type: "tab.new" });
+				// switch lauout UI
+				Spawn.find("layout").addClass("show-blank-view");
 				break;
 			case "spawn.blur":
 			case "spawn.focus":

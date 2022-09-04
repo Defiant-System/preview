@@ -7,8 +7,8 @@ class Tabs {
 		this._active = null;
 
 		// DOM template
-		let template = spawn.find(`.page`);
-		this._content = spawn.find(`layout > content`);
+		let template = spawn.find(`.file`);
+		this._content = spawn.find(`layout`);
 		this._template = template.clone(true);
 		template.remove();
 	}
