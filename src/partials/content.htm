@@ -1,15 +1,27 @@
 <layout>
 	<div class="blank-view" data-area="blankView"></div>
 	<div class="file loading">
-		<sidebar class="hidden" data-area="sidebar">
-			<div class="toc" data-click="sidebar-select-thumbnail"></div>
+		<sidebar class="hidden1" data-area="sidebar">
+			<div class="toc" data-click="sidebar-select-thumbnail">
+				<!-- <div class="thumb selected" style="height: 170px;" data-page-number="1">
+					
+				</div>
+				<div class="thumb" style="height: 170px;" data-page-number="2">
+					
+				</div>
+				<div class="thumb" style="height: 170px;" data-page-number="3">
+					
+				</div> -->
+			</div>
 		</sidebar>
 		<content data-area="contentView">
 			<svg class="loader" viewBox="25 25 50 50" >
 				<circle class="loader-path" cx="50" cy="50" r="20" />
 			</svg>
-			<canvas></canvas>
-			<div></div>
+			<div class="page">
+				<canvas></canvas>
+				<div></div>
+			</div>
 		</content>
 	</div>
 </layout>

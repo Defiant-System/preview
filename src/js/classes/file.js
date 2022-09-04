@@ -8,17 +8,33 @@ class File {
 		switch (this._file.kind) {
 			case "pdf":
 				PDF.getDocument({ data: file.arrayBuffer }).promise.then(pdf => {
+					// reference to PDF document
+					this._pdf = pdf;
 					// reset DOM element
 					this._el.removeClass("loading").find("svg").remove();
 
-					// console.log(pdf);
+					// render sidebar thumbnails
+					preview.spawn.sidebar.dispatch({ type: "render-thumbnails", file: this });
+
+					// preview.spawn.contentView.dispatch({
+					// 	type: "render-page",
+					// 	page: Self.page[0],
+					// 	pageNum: 1
+					// });
 				});
 				break;
 		}
+	}
+
+	get pdf() {
+		return this._pdf;
 	}
 
 	set bodyEl(el) {
 		this._el = el;
 	}
 
+	get bodyEl() {
+		return this._el;
+	}
 }

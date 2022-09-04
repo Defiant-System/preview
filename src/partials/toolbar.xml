@@ -1,9 +1,9 @@
 <ToolBar>
 	<Group width="71%">
-		<Tool symbol="icon-sidebar" click="toggle-sidebar-view" state="disabled"/>
+		<Tool symbol="icon-sidebar" click="toggle-sidebar-view" state="disabled1"/>
 		<Options>
-			<Tool symbol="icon-search-minus" click="content-zoom-out" state="disabled"/>
-			<Tool symbol="icon-search-plus" click="content-zoom-in" state="disabled"/>
+			<Tool symbol="icon-search-minus" click="content-zoom-out" state="disabled1"/>
+			<Tool symbol="icon-search-plus" click="content-zoom-in" state="disabled1"/>
 		</Options>
 	</Group>
 	<Group width="29%">
