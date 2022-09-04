@@ -16,7 +16,7 @@
 		<Menu name="Hide Toolbar" toggle_true="Show Toolbar" click="toggle-toolbar"/>
 	</Menu>
 	<Menu name="Help">
-		<Menu name="Send Preview Feedback"/>
+		<Menu name="Preview Help" click="open-help"/>
 		<Menu type="divider"/>
 		<Menu name="License"/>
 	</Menu>

@@ -1,33 +1,31 @@
 
-// preview.blankView
+// preview.spawn.blankView
 
 {
 	init() {
-		// fast references
-		this.els = {
-			content: window.find("content"),
-			el: window.find(".blank-view"),
-		};
 		
-		// render blank view
-		window.render({
-			template: "blank-view",
-			match: `//Data`,
-			target: preview.els.blankView
-		});
-
-		// temp
-		// setTimeout(() => this.els.el.find(".sample:nth(1)").trigger("click"), 200);
-		// setTimeout(() => preview.els.toolbar.sidebar.trigger("click"), 700);
 	},
 	dispatch(event) {
 		let APP = preview,
-			Self = APP.blankView,
+			Spawn = event.spawn,
+			Self = APP.spawn.blankView,
 			el;
 		// console.log(event);
 		switch (event.type) {
+			case "init-blank-view":
+				// blank view
+				el = Spawn.find(".blank-view");
+				if (!el.find(".div").length) {
+					// render blank view
+					window.render({
+						template: "blank-view",
+						match: `//Data`,
+						target: el,
+					});
+				}
+				break;
 			case "open-filesystem":
-				APP.dispatch({ type: "open-file" });
+				APP.spawn.dispatch({ ...event, type: "open-file" });
 				break;
 			case "from-clipboard":
 				// TODO
