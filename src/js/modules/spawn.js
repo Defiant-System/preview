@@ -64,10 +64,18 @@
 			case "open-help":
 				karaqu.shell("fs -u '~/help/index.md'");
 				break;
+
+			// proxy toolbar events
+			case "content-zoom-out":
+			case "content-zoom-in":
+			case "content-zoom-reset":
+				return Self.contentView.dispatch(event);
+			case "toggle-sidebar-view":
+				return Self.sidebar.dispatch(event);
 			
 			default:
 				if (event.el) {
-					let pEl = event.el.parents(`div[data-area]`);
+					let pEl = event.el.parents("[data-area]");
 					if (pEl.length) {
 						let name = pEl.data("area");
 						Self[name].dispatch(event);

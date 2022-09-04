@@ -14,13 +14,16 @@ class File {
 					this._el.removeClass("loading").find("svg").remove();
 
 					// render sidebar thumbnails
-					preview.spawn.sidebar.dispatch({ type: "render-thumbnails", file: this });
+					preview.spawn.sidebar.dispatch({
+						type: "render-thumbnails",
+						file: this,
+					});
 
-					// preview.spawn.contentView.dispatch({
-					// 	type: "render-page",
-					// 	page: Self.page[0],
-					// 	pageNum: 1
-					// });
+					preview.spawn.contentView.dispatch({
+						type: "render-page",
+						file: this,
+						pageNum: 1
+					});
 				});
 				break;
 		}

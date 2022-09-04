@@ -65,10 +65,21 @@ class Tabs {
 
 	update() {
 		let spawn = this._spawn,
-			active = this._active;
+			active = this._active,
+			value;
 		// unhide focused body
 		active.bodyEl.removeClass("hidden");
 		// update spawn window title
 		spawn.title = active.file._file.base;
+
+		// fix toolbar
+		value = true;
+		spawn.find(`.toolbar-tool_[data-click="toggle-sidebar-view"]`).toggleClass("tool-disabled_", value);
+
+		value = true;
+		spawn.find(`.toolbar-tool_[data-click="content-zoom-out"]`).toggleClass("tool-disabled_", value);
+		
+		value = true;
+		spawn.find(`.toolbar-tool_[data-click="content-zoom-in"]`).toggleClass("tool-disabled_", value);
 	}
 }
