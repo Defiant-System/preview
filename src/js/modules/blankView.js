@@ -41,7 +41,10 @@
 				// fetch file
 				window.fetch(url, { responseType: "arrayBuffer" })
 					// forward event to app
-					.then(file => APP.spawn.dispatch({ type: "open.file", spawn: Spawn, file }));
+					.then(file => {
+						// auto add first base "tab"
+						APP.spawn.dispatch({ type: "tab.new", spawn: Spawn, file });
+					});
 				break;
 		}
 	}

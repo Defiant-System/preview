@@ -1,10 +1,13 @@
 <layout>
 	<div class="blank-view" data-area="blankView"></div>
-	<div class="file">
+	<div class="file loading">
 		<sidebar class="hidden" data-area="sidebar">
 			<div class="toc" data-click="sidebar-select-thumbnail"></div>
 		</sidebar>
 		<content data-area="contentView">
+			<svg class="loader" viewBox="25 25 50 50" >
+				<circle class="loader-path" cx="50" cy="50" r="20" />
+			</svg>
 			<canvas></canvas>
 			<div></div>
 		</content>

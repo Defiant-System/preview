@@ -7,8 +7,8 @@ class Tabs {
 		this._active = null;
 
 		// DOM template
-		let template = spawn.find(`.file`);
-		this._content = spawn.find(`layout`);
+		let template = spawn.find(".file");
+		this._content = spawn.find("layout");
 		this._template = template.clone(true);
 		template.remove();
 	}
@@ -21,23 +21,20 @@ class Tabs {
 		return Object.keys(this._stack).length;
 	}
 
-	add(fItem) {
-		// let file = fItem || new File();
-		let file = fItem || { base: "Blank" },
-			tId = "f"+ Date.now(),
-			tName = file ? file.base : "Blank",
-			tabEl = this._spawn.tabs.add(tName, tId),
-			bodyEl = this._template.clone(),
-			history = new window.History;
+	add(fsItem) {
+		let tId = "f"+ Date.now(),
+			file = new File(fsItem),
+			tabEl = this._spawn.tabs.add(file.base, tId),
+			bodyEl = this._template.clone(true);
 
 		// add element to DOM + append file contents
 		bodyEl.attr({ "data-id": tId });
 		bodyEl = this._content.append(bodyEl);
-
-		if (file._file) file.bodyEl = bodyEl;
+		// attach DOM element to file wrapper
+		file.bodyEl = bodyEl;
 
 		// save reference to tab
-		this._stack[tId] = { tId, tabEl, bodyEl, history, file };
+		this._stack[tId] = { tId, tabEl, bodyEl, file };
 		// focus on file
 		this.focus(tId);
 	}
@@ -55,10 +52,23 @@ class Tabs {
 	}
 
 	focus(tId) {
-		
+		let active = this._active;
+		if (active) {
+			// hide blurred body
+			active.bodyEl.addClass("hidden");
+		}
+		// reference to active tab
+		this._active = this._stack[tId];
+		// UI update
+		this.update();
 	}
 
 	update() {
-		
+		let spawn = this._spawn,
+			active = this._active;
+		// unhide focused body
+		active.bodyEl.removeClass("hidden");
+		// update spawn window title
+		spawn.title = active.file._file.base;
 	}
 }

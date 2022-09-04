@@ -49,26 +49,44 @@ layout {
 
 
 .file {
+	// background: #eee;
 	position: relative;
-	margin: 13px auto;
-	text-align: center;
-	border-radius: 2px;
-	display: block;
+	flex: 1;
+	overflow: auto;
+	padding: 0 13px;
+	scroll-behavior: smooth;
+
+	&.hidden {
+		display: none;
+	}
 
 	&.loading {
-		canvas {
-			//opacity: 0;
+		canvas,
+		content > div {
+			opacity: 0;
+			visibility: hidden;
 		}
-		> svg {
+
+		svg.loader {
 			display: block;
 			position: absolute;
 			top: 50%;
 			left: 50%;
 			width: 50px;
 			height: 50px;
-			transform: translateX( -50% ) translateY( -50% );
-			--color-1: #ddd;
-			--stroke-width: 5px;
+			margin: -25px 0 0 -25px;
+			transform-origin: center center;
+			animation: loader-rotate 2.5s linear infinite;
+
+			.loader-path {
+				stroke-dasharray: 150, 200;
+				stroke-dashoffset: -10;
+				stroke-linecap: round;
+				stroke: #d2d2d2;
+				stroke-width: 3px;
+				fill: none;
+				animation: loader-dash 1.5s ease-in-out infinite;
+			}
 		}
 	}
 
@@ -136,11 +154,11 @@ layout {
 	}
 
 	content {
-		background: #eee;
-		flex: 1;
-		overflow: auto;
-		padding: 0 13px;
-		scroll-behavior: smooth;
+		position: relative;
+		margin: 13px auto;
+		text-align: center;
+		border-radius: 2px;
+		display: block;
 
 		canvas {
 			display: inline-block;
@@ -172,7 +190,7 @@ layout {
 				}
 			}
 		}
-		svg {
+		svg.loader {
 			display: none;
 		}
 	}
@@ -281,4 +299,15 @@ layout {
 			}
 		}
 	}
+}
+
+
+@keyframes loader-rotate {
+	100% { transform: rotate(360deg); }
+}
+
+@keyframes loader-dash {
+	0%   { stroke-dasharray: 1, 200;  stroke-dashoffset: 0; }
+	50%  { stroke-dasharray: 89, 200; stroke-dashoffset: -35; }
+	100% { stroke-dasharray: 89, 200; stroke-dashoffset: -124; }
 }
