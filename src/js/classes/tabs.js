@@ -23,7 +23,7 @@ class Tabs {
 
 	add(fsItem) {
 		let tId = "f"+ Date.now(),
-			file = new File(fsItem),
+			file = new File(fsItem, this._spawn),
 			tabEl = this._spawn.tabs.add(fsItem.base, tId),
 			bodyEl = this._template.clone(true);
 

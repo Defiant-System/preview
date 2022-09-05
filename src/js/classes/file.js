@@ -1,9 +1,10 @@
 
 class File {
 
-	constructor(file) {
+	constructor(file, spawn) {
 		// save reference to original FS file
 		this._file = file;
+		this._spawn = spawn;
 		// in the future, this app will support other file types than PDF
 		switch (this._file.kind) {
 			case "pdf":
@@ -21,6 +22,10 @@ class File {
 
 	get pdf() {
 		return this._pdf;
+	}
+
+	get spawn() {
+		return this._spawn;
 	}
 
 	set bodyEl(el) {

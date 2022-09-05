@@ -24,11 +24,10 @@
 
 				// page template element
 				page = File.bodyEl.find(".page:first");
+
 				// page widths - used for zoom in/out
-				File.zoom = {
-					reset: page.prop("offsetWidth"),
-					width: page.prop("offsetWidth"),
-				};
+				let width = page.prop("offsetWidth") || (Spawn || File.spawn).innerWidth - 26;
+				File.zoom = { reset: width, width };
 
 				// render page contents
 				[...Array(File.pdf.numPages)].map((e, i) => {
