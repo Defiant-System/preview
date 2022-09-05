@@ -12,6 +12,7 @@
 		let APP = preview,
 			Self = APP.spawn,
 			Spawn = event.spawn,
+			value,
 			el;
 		// console.log(event);
 		switch (event.type) {
@@ -68,6 +69,20 @@
 			// custom events
 			case "open-file":
 				Spawn.dialog.open({ pdf: item => Self.dispatch(item) });
+				break;
+			case "close-tab":
+				value = Spawn.data.tabs.length;
+				if (event.delayed) {
+					Spawn.data.tabs.removeDelayed();
+				} else if (value > 1) {
+					Spawn.data.tabs._active.tabEl.find(`[sys-click]`).trigger("click");
+				} else if (value === 1) {
+					Self.dispatch({ ...event, type: "close-spawn" });
+				}
+				break;
+			case "close-spawn":
+				// system close window / spawn
+				karaqu.shell("win -c");
 				break;
 			case "open-help":
 				karaqu.shell("fs -u '~/help/index.md'");

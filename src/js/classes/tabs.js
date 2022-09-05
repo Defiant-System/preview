@@ -17,6 +17,11 @@ class Tabs {
 		return Object.keys(this._stack).length;
 	}
 
+	removeDelayed() {
+		let el = this._active.tabEl;
+		this._spawn.tabs.wait(el);
+	}
+
 	add(fsItem = { base: "Blank" }) {
 		let tId = "f"+ Date.now(),
 			file = new File(fsItem, this._spawn),
