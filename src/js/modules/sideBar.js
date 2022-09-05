@@ -23,6 +23,10 @@
 				pEl = Spawn.data.tabs._active.bodyEl.find("sideBar");
 				isOn = pEl.hasClass("hidden");
 				pEl.toggleClass("hidden", isOn);
+
+				let active = Spawn.data.tabs._active;
+				active.sidebar = isOn;
+
 				return isOn;
 			case "sidebar-select-thumbnail":
 				el = $(event.target);

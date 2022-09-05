@@ -13,10 +13,6 @@ class Tabs {
 		template.remove();
 	}
 
-	get file() {
-		return this._active.file;
-	}
-
 	get length() {
 		return Object.keys(this._stack).length;
 	}
@@ -25,7 +21,8 @@ class Tabs {
 		let tId = "f"+ Date.now(),
 			file = new File(fsItem, this._spawn),
 			tabEl = this._spawn.tabs.add(fsItem.base, tId),
-			bodyEl = this._template.clone(true);
+			bodyEl = this._template.clone(true),
+			sidebar = false;
 
 		// add element to DOM + append file contents
 		bodyEl.attr({ "data-id": tId });
@@ -34,7 +31,7 @@ class Tabs {
 		file.bodyEl = bodyEl;
 
 		// save reference to tab
-		this._stack[tId] = { tId, tabEl, bodyEl, file };
+		this._stack[tId] = { tId, tabEl, bodyEl, file, sidebar };
 		// focus on file
 		this.focus(tId);
 	}
@@ -59,6 +56,7 @@ class Tabs {
 		}
 		// reference to active tab
 		this._active = this._stack[tId];
+
 		// UI update
 		this.update();
 	}
@@ -74,7 +72,9 @@ class Tabs {
 
 		// fix toolbar
 		value = true;
-		spawn.find(`.toolbar-tool_[data-click="toggle-sidebar-view"]`).toggleClass("tool-disabled_", value);
+		spawn.find(`.toolbar-tool_[data-click="toggle-sidebar-view"]`)
+			.toggleClass("tool-active_", !active.sidebar)
+			.toggleClass("tool-disabled_", value);
 
 		value = true;
 		spawn.find(`.toolbar-tool_[data-click="content-zoom-out"]`).toggleClass("tool-disabled_", value);

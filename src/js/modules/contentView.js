@@ -38,7 +38,7 @@
 				// remove reference element
 				page.remove();
 				// reference to file
-				Self.file = File;
+				// Self.file = File;
 				break;
 			case "scroll-to-page":
 				let top = File.bodyEl.find(".page").nth(event.pageNum).prop("offsetTop");
@@ -64,7 +64,7 @@
 			case "content-zoom-reset":
 			case "content-zoom-out":
 			case "content-zoom-in":
-				File = File || Spawn.data.tabs._active.file;
+				File = Spawn.data.tabs._active.file;
 
 				File.zoom.width *= (event.type === "content-zoom-out") ? 0.8 : 1.25;
 				if (event.type === "content-zoom-reset") {
