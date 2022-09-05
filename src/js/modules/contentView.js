@@ -18,38 +18,22 @@
 		switch (event.type) {
 			// system events
 			case "spawn.blur":
-				break;
 			case "spawn.focus":
-				// let active = Spawn.data.tabs._active.file;
-				// // fast references
-				// Self.els = {
-				// 	page: active.bodyEl.find("contentView"),
-				// };
-
-				// console.log( Spawn.data.tabs._active );
-				break;
-			// native events
-			case "scroll":
 				break;
 			// custom events
 			case "init-file":
 				// render sidebar thumbnails
 				APP.spawn.sidebar.dispatch({ ...event, type: "render-thumbnails" });
 
-				Self.dispatch({ ...event, type: "render-page", pageNum: 1 });
+				// Self.dispatch({ ...event, type: "render-page", pageNum: 1 });
 
 				page = File.bodyEl.find(".page:first");
-				pages = Array.from({length: File.pdf.numPages - 1});
-				pages.map(p => {
-					let clone = page.after(page.clone(true)).addClass("loading");
-					clone.append(`<svg><use href="#preview-svg-loading"></use></svg>`);
-					clone.find("> div").html("");
+				[...Array(File.pdf.numPages)].map((e, i) => {
+					let el = page.before(page.clone(true)),
+						pageNum = i + 1;
+					Self.dispatch({ ...event, type: "render-page", pageNum, el });
 				});
-
-				// save reference to all pages
-				File.pages = File.bodyEl.find(".page");
-
-				console.log( File.pages );
+				page.remove();
 
 				break;
 			case "render-page":
@@ -57,8 +41,7 @@
 				page = await File.pdf.getPage(event.pageNum);
 
 				let viewport = page.getViewport({ scale: pageWidth / page.getViewport({ scale: 1 }).width });
-				let pageEl = File.bodyEl.find(".page:first");
-				el = pageEl.find("canvas");
+				el = event.el.find("canvas");
 				el.prop({ width: viewport.width, height: viewport.height })
 					.css({ width: viewport.width, height: viewport.height });
 				let canvasContext = el[0].getContext("2d");
@@ -67,8 +50,8 @@
 
 				// the text layer
 				let textContent = await page.getTextContent();
-				let container = pageEl.find("> div")[0];
-				PDF.renderTextLayer({ textContent, viewport, container });
+				let container = event.el.find("> div")[0];
+				// PDF.renderTextLayer({ textContent, viewport, container });
 				break;
 			case "content-zoom-reset":
 			case "content-zoom-out":
