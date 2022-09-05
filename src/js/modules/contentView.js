@@ -9,7 +9,7 @@
 		let APP = preview,
 			Self = APP.spawn.contentView,
 			Spawn = event.spawn,
-			File = event.file,
+			File = event.file || Self.file,
 			page,
 			pages,
 			pageWidth,
@@ -35,6 +35,13 @@
 				});
 				page.remove();
 
+				// reference to file
+				Self.file = File;
+				break;
+			case "scroll-to-page":
+				top = File.bodyEl.find(".page").nth(event.pageNum).prop("offsetTop");
+				Self.suppressEventLoop = top - 10;
+				File.bodyEl.find("content").scrollTop(Self.suppressEventLoop);
 				break;
 			case "render-page":
 				pageWidth = File.bodyEl.prop("offsetWidth") - 26;

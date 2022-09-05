@@ -38,7 +38,7 @@
 			case "render-thumbnails":
 				let toc = File.bodyEl.find(`sidebar > .toc`);
 				let thumbWidth = toc.prop("offsetWidth") * 0.73;
-				let pages = Array.from({ length: File.pdf.numPages });
+				let pages = [...Array(File.pdf.numPages)];
 				let thumbnails = await Promise.all(pages.map(async (n, i) => {
 					let className = i === 0 ? "thumb selected" : "thumb",
 						page = await File.pdf.getPage(i+1),
