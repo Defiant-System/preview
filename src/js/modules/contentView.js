@@ -11,9 +11,6 @@
 			Spawn = event.spawn,
 			File = event.file || Self.file,
 			page,
-			pages,
-			pageWidth,
-			top,
 			el;
 		switch (event.type) {
 			// system events
@@ -28,8 +25,10 @@
 				// page template element
 				page = File.bodyEl.find(".page:first");
 				// page widths - used for zoom in/out
-				File.zoomReset =
-				File.pageWidth = page.prop("offsetWidth");
+				File.zoom = {
+					reset: page.prop("offsetWidth"),
+					width: page.prop("offsetWidth"),
+				};
 
 				// render page contents
 				[...Array(File.pdf.numPages)].map((e, i) => {
@@ -43,15 +42,14 @@
 				Self.file = File;
 				break;
 			case "scroll-to-page":
-				top = File.bodyEl.find(".page").nth(event.pageNum).prop("offsetTop");
+				let top = File.bodyEl.find(".page").nth(event.pageNum).prop("offsetTop");
 				Self.suppressEventLoop = top - 10;
 				File.bodyEl.find("content").scrollTop(Self.suppressEventLoop);
 				break;
 			case "render-page":
-				pageWidth = File.pageWidth; // File.bodyEl.prop("offsetWidth") - 26;
 				page = await File.pdf.getPage(event.pageNum);
 
-				let viewport = page.getViewport({ scale: pageWidth / page.getViewport({ scale: 1 }).width });
+				let viewport = page.getViewport({ scale: File.zoom.width / page.getViewport({ scale: 1 }).width });
 				el = event.el.find("canvas");
 				el.prop({ width: viewport.width, height: viewport.height })
 					.css({ width: viewport.width, height: viewport.height });
@@ -69,11 +67,11 @@
 			case "content-zoom-in":
 				File = File || Spawn.data.tabs._active.file;
 
-				File.pageWidth *= (event.type === "content-zoom-out") ? 0.8 : 1.25;
+				File.zoom.width *= (event.type === "content-zoom-out") ? 0.8 : 1.25;
 				if (event.type === "content-zoom-reset") {
-					File.pageWidth = File.bodyEl.prop("offsetWidth") - 26;
+					File.zoom.width = File.zoom.reset;
 				}
-				File.pageWidth = Math.round(File.pageWidth);
+				File.zoom.width = Math.round(File.zoom.width);
 
 				File.bodyEl.find(".page").map((e, i) => {
 					// re-render pages

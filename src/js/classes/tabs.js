@@ -24,7 +24,7 @@ class Tabs {
 	add(fsItem) {
 		let tId = "f"+ Date.now(),
 			file = new File(fsItem),
-			tabEl = this._spawn.tabs.add(file.base, tId),
+			tabEl = this._spawn.tabs.add(fsItem.base, tId),
 			bodyEl = this._template.clone(true);
 
 		// add element to DOM + append file contents
