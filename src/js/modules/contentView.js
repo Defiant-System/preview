@@ -25,16 +25,20 @@
 				// render sidebar thumbnails
 				APP.spawn.sidebar.dispatch({ ...event, type: "render-thumbnails" });
 
-				// Self.dispatch({ ...event, type: "render-page", pageNum: 1 });
-
+				// page template element
 				page = File.bodyEl.find(".page:first");
+				// page widths - used for zoom in/out
+				File.zoomReset =
+				File.pageWidth = page.prop("offsetWidth");
+
+				// render page contents
 				[...Array(File.pdf.numPages)].map((e, i) => {
 					let el = page.before(page.clone(true)),
 						pageNum = i + 1;
 					Self.dispatch({ ...event, type: "render-page", pageNum, el });
 				});
+				// remove reference element
 				page.remove();
-
 				// reference to file
 				Self.file = File;
 				break;
@@ -44,7 +48,7 @@
 				File.bodyEl.find("content").scrollTop(Self.suppressEventLoop);
 				break;
 			case "render-page":
-				pageWidth = File.bodyEl.prop("offsetWidth") - 26;
+				pageWidth = File.pageWidth; // File.bodyEl.prop("offsetWidth") - 26;
 				page = await File.pdf.getPage(event.pageNum);
 
 				let viewport = page.getViewport({ scale: pageWidth / page.getViewport({ scale: 1 }).width });
@@ -63,36 +67,23 @@
 			case "content-zoom-reset":
 			case "content-zoom-out":
 			case "content-zoom-in":
-				File = Spawn.data.tabs._active.file;
+				File = File || Spawn.data.tabs._active.file;
 
-				pageWidth *= (event.type === "content-zoom-out") ? 0.8 : 1.25;
+				File.pageWidth *= (event.type === "content-zoom-out") ? 0.8 : 1.25;
 				if (event.type === "content-zoom-reset") {
-					pageWidth = File.bodyEl.prop("offsetWidth") - 26;
+					File.pageWidth = File.bodyEl.prop("offsetWidth") - 26;
 				}
+				File.pageWidth = Math.round(File.pageWidth);
 
-				/*
-				this.pages.find("> div").html("");
-				
-				this.pages.map(async (pageEl, index) => {
-					if (~pageEl.className.indexOf("loading")) return;
-
-					// Fetch the page
-					let page = await Self.file.getPage(index+1);
-					let viewport = page.getViewport({ scale: pageWidth / page.getViewport({ scale: 1 }).width });
-
-					// Prepare canvas using PDF page dimensions
-					canvas = pageEl.getElementsByTagName("canvas")[0]
-					canvasContext = canvas.getContext("2d");
-					canvas.height = viewport.height;
-					canvas.width = viewport.width;
-
-					canvas.style.height = viewport.height + "px";
-					canvas.style.width = viewport.width + "px";
-
-					// Render PDF page into canvas context
-					page.render({ canvasContext, viewport });
+				File.bodyEl.find(".page").map((e, i) => {
+					// re-render pages
+					Self.dispatch({
+						type: "render-page",
+						file: File,
+						pageNum: i + 1,
+						el: $(e),
+					});
 				});
-				*/
 				break;
 		}
 	}
