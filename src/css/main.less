@@ -285,8 +285,7 @@ layout {
 			background-color: #fff;
 			background-size: 0 0;
 			position: relative;
-			width: 172px;
-			height: 228px;
+			width: 29%;
 			margin: 0 21px 13px 0;
 			border-radius: 5px;
 			cursor: pointer;
@@ -296,6 +295,12 @@ layout {
 			&:hover {
 				box-shadow: 0 0 0 3px #489bf770,
 							inset 0 0 0 3px #489bf7;
+			}
+
+			&:before {
+				content: "";
+				display: block;
+				padding-top: 131%;
 			}
 
 			&:after {

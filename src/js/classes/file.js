@@ -17,6 +17,10 @@ class File {
 					preview.spawn.contentView.dispatch({ type: "init-file", file: this });
 				});
 				break;
+			default:
+				// blank view
+				spawn.find(".file.loading").removeClass("loading").addClass("hidden");
+				spawn.find("layout").addClass("show-blank-view");
 		}
 	}
 

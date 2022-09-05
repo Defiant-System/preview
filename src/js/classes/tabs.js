@@ -17,7 +17,7 @@ class Tabs {
 		return Object.keys(this._stack).length;
 	}
 
-	add(fsItem) {
+	add(fsItem = { base: "Blank" }) {
 		let tId = "f"+ Date.now(),
 			file = new File(fsItem, this._spawn),
 			tabEl = this._spawn.tabs.add(fsItem.base, tId),
