@@ -45,6 +45,13 @@
 					Self.dispatch({ type: "tab.new", spawn: Spawn, file });
 				});
 				break;
+			case "load-samples":
+				event.samples.map(async path => {
+					let file = await Spawn.data.tabs.openLocal(`~/samples/${path}`);
+					// auto add first base "tab"
+					Self.dispatch({ ...event, file, type: "tab.new" });
+				});
+				break;
 
 			// tab related events
 			case "tab.new":

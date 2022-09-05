@@ -82,4 +82,21 @@ class Tabs {
 		value = true;
 		spawn.find(`.toolbar-tool_[data-click="content-zoom-in"]`).toggleClass("tool-disabled_", value);
 	}
+
+	openLocal(url) {
+		let parts = url.slice(url.lastIndexOf("/") + 1),
+			[ name, kind ] = parts.split("."),
+			file = new karaqu.File({ name, kind });
+		// return promise
+		return new Promise((resolve, reject) => {
+			// fetch image and transform it to a "fake" file
+			window.fetch(url, { responseType: "arrayBuffer" })
+				.then(f => {
+					file.size = f.size;
+					file.arrayBuffer = f.arrayBuffer;
+					resolve(file);
+				})
+				.catch(err => reject(err));
+		});
+	}
 }
