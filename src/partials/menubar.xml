@@ -2,9 +2,13 @@
 	<Menu name="Preview">
 		<Menu name="About Preview" shell="win -a"/>
 		<Menu type="divider"/>
-		<Menu name="Close File" click="close-file"/>
-		<Menu type="divider"/>
 		<Menu name="Quit Preview" shell="win -c"/>
+	</Menu>
+	<Menu name="File">
+		<Menu name="New" click="new-spawn" hotkey="alt+n"/>
+		<Menu name="Open&#8230;" click="open-file" hotkey="alt+o"/>
+		<Menu type="divider"/>
+		<Menu name="Close File" click="close-file"/>
 	</Menu>
 	<Menu name="View">
 		<Menu name="Hide Sidebar" toggle_false="Show Sidebar" click="toggle-sidebar-view"/>
@@ -14,6 +18,17 @@
 		<Menu name="Zoom Out" click="content-zoom-out"/>
 		<Menu type="divider"/>
 		<Menu name="Hide Toolbar" toggle_true="Show Toolbar" click="toggle-toolbar"/>
+	</Menu>
+	<Menu name="Window">
+		<Menu name="New Window" click="new-spawn" hotkey="alt+n"/>
+		<Menu name="New Tab" click="tab.new" hotkey="alt+t"/>
+		<Menu name="Merge All Windows" click="merge-all-windows" hotkey="alt+c"/>
+		<Menu type="divider"/>
+		<Menu name="Minimize" shell="win -s min"/>
+		<Menu name="Maximize" shell="win -s max"/>
+		<Menu type="divider"/>
+		<Menu name="Close Tab" click="close-tab" hotkey="alt+w"/>
+		<Menu name="Close Window" click="close-spawn" hotkey="alt+shift+w"/>
 	</Menu>
 	<Menu name="Help">
 		<Menu name="Preview Help" click="open-help"/>

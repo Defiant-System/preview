@@ -67,8 +67,21 @@
 				break;
 
 			// custom events
+			case "new-spawn":
+				APP.dispatch({ type: "new-spawn" });
+				break;
 			case "open-file":
 				Spawn.dialog.open({ pdf: item => Self.dispatch(item) });
+				break;
+			case "merge-all-windows":
+				Spawn.siblings.map(oSpawn => {
+					for (let key in oSpawn.data.tabs._stack) {
+						let ref = oSpawn.data.tabs._stack[key];
+						Spawn.data.tabs.merge(ref);
+					}
+					// close sibling spawn
+					oSpawn.close();
+				});
 				break;
 			case "close-tab":
 				value = Spawn.data.tabs.length;
