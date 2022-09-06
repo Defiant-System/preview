@@ -28,6 +28,10 @@ class File {
 		return this._pdf;
 	}
 
+	get base() {
+		return this._file.base;
+	}
+
 	get spawn() {
 		return this._spawn;
 	}

@@ -42,7 +42,22 @@ class Tabs {
 	}
 
 	merge(ref) {
-		
+		let tId = ref.tId,
+			file = ref.file,
+			sidebar = ref.sidebar,
+			bodyEl = ref.bodyEl.clone(true).addClass("hidden"),
+			tabEl = this._spawn.tabs.add(file.base, tId, true);
+		// clone & append original bodyEl
+		bodyEl = this._content.append(bodyEl);
+		// clone element does not copy contents - must manualy copy canvas contents
+		let srcCvs = ref.bodyEl.find(".page > canvas");
+		bodyEl.find(".page > canvas").map((dCvs, i) => {
+			let dCtx = dCvs.getContext("2d"),
+				sCvs = srcCvs.get(i)[0];
+			dCtx.drawImage(sCvs, 0, 0);
+		});
+		// save reference to this spawns stack
+		this._stack[tId] = { tId, tabEl, bodyEl, file, sidebar };
 	}
 
 	remove(tId) {
