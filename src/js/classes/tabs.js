@@ -22,7 +22,7 @@ class Tabs {
 		this._spawn.tabs.wait(el);
 	}
 
-	add(fsItem = { base: "Blank" }) {
+	add(fsItem = { base: "Blank", isBlankview: true }) {
 		let tId = "f"+ Date.now(),
 			file = new File(fsItem, this._spawn),
 			tabEl = this._spawn.tabs.add(fsItem.base, tId),
@@ -91,15 +91,15 @@ class Tabs {
 		spawn.title = active.file._file.base;
 
 		// fix toolbar
-		value = true;
+		value = !active.file._file.isBlankview;
 		spawn.find(`.toolbar-tool_[data-click="toggle-sidebar-view"]`)
 			.toggleClass("tool-active_", !active.sidebar)
 			.toggleClass("tool-disabled_", value);
 
-		value = true;
+		value = !active.file._file.isBlankview;
 		spawn.find(`.toolbar-tool_[data-click="content-zoom-out"]`).toggleClass("tool-disabled_", value);
 		
-		value = true;
+		value = !active.file._file.isBlankview;
 		spawn.find(`.toolbar-tool_[data-click="content-zoom-in"]`).toggleClass("tool-disabled_", value);
 	}
 
