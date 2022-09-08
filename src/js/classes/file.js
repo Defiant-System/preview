@@ -11,6 +11,8 @@ class File {
 				PDF.getDocument({ data: file.arrayBuffer }).promise.then(pdf => {
 					// reference to PDF document
 					this._pdf = pdf;
+					// reset layouy
+					spawn.find("layout").removeClass("show-blank-view");
 					// reset DOM element
 					this._el.removeClass("loading").find("svg").remove();
 					// initiate file in content view

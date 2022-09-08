@@ -95,10 +95,10 @@ class Tabs {
 		spawn.find(`.toolbar-tool_[data-click="toggle-sidebar-view"]`)
 			.toggleClass("tool-active_", !active.sidebar)
 			.toggleClass("tool-disabled_", value);
-
+		// zoom out button
 		value = !active.file._file.isBlankview;
 		spawn.find(`.toolbar-tool_[data-click="content-zoom-out"]`).toggleClass("tool-disabled_", value);
-		
+		// zoom in button
 		value = !active.file._file.isBlankview;
 		spawn.find(`.toolbar-tool_[data-click="content-zoom-in"]`).toggleClass("tool-disabled_", value);
 	}
