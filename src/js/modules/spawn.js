@@ -8,6 +8,15 @@
 			.filter(i => typeof this[i].init === "function")
 			.map(i => this[i].init());
 	},
+	dispose(event) {
+		let Spawn = event.spawn;
+		let cmd = { type: "open.file", files: [] };
+		for (let key in Spawn.data.tabs._stack) {
+			let tab = Spawn.data.tabs._stack[key];
+			if (tab.file.xNode) cmd.files.push(tab.file.path);
+		}
+		return cmd.files.length ? cmd : {};
+	},
 	dispatch(event) {
 		let APP = preview,
 			Self = APP.spawn,
@@ -24,7 +33,7 @@
 
 				// temp
 				// setTimeout(() => Self.dispatch({ type: "tab.new", spawn: Spawn }), 300);
-				setTimeout(() => Spawn.find(`.toolbar-tool_[data-click="toggle-sidebar-view"]`).trigger("click"), 500);
+				// setTimeout(() => Spawn.find(`.toolbar-tool_[data-click="toggle-sidebar-view"]`).trigger("click"), 500);
 				// setTimeout(() => {
 				// 	if (Spawn.find("layout.show-blank-view").length) return;
 				// 	Self.dispatch({ ...event, type: "merge-all-windows" });

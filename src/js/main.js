@@ -11,6 +11,11 @@ const preview = {
 	init() {
 		
 	},
+	dispose(event) {
+		if (event.spawn) {
+			return this.spawn.dispose(event);
+		}
+	},
 	async dispatch(event) {
 		let Self = preview,
 			spawn,
