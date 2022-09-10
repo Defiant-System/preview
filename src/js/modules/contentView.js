@@ -41,6 +41,7 @@
 				// Self.file = File;
 				break;
 			case "scroll-to-page":
+				if (!File) File = Spawn.data.tabs._active.file;
 				let top = File.bodyEl.find(".page").nth(event.pageNum).prop("offsetTop");
 				Self.suppressEventLoop = top - 10;
 				File.bodyEl.find("content").scrollTop(Self.suppressEventLoop);

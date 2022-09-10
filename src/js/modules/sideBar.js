@@ -30,11 +30,12 @@
 				return isOn;
 			case "sidebar-select-thumbnail":
 				el = $(event.target);
-				if (!el.hasClass("thumb")) return;
+				if (!el.hasClass("thumb") || el.hasClass("selected")) return;
 				el.parent().find(".selected").removeClass("selected");
 				el.addClass("selected");
 
 				APP.spawn.contentView.dispatch({
+					...event,
 					type: "scroll-to-page",
 					pageNum: el.index(),
 				});
