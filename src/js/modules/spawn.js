@@ -31,13 +31,9 @@
 				// init blank view
 				Self.blankView.dispatch({ ...event, type: "init-blank-view" });
 
-				// temp
-				// setTimeout(() => Self.dispatch({ type: "tab.new", spawn: Spawn }), 300);
-				// setTimeout(() => Spawn.find(`.toolbar-tool_[data-click="toggle-sidebar-view"]`).trigger("click"), 500);
-				// setTimeout(() => {
-				// 	if (Spawn.find("layout.show-blank-view").length) return;
-				// 	Self.dispatch({ ...event, type: "merge-all-windows" });
-				// }, 800);
+				// DEV-ONLY-START
+				Test.init(APP, Spawn);
+				// DEV-ONLY-END
 				break;
 			case "spawn.init":
 				Self.dispatch({ ...event, type: "tab.new" });

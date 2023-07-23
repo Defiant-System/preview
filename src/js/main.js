@@ -5,6 +5,7 @@ PDF.GlobalWorkerOptions.workerSrc = "~/js/pdf.worker.js"
 
 @import "classes/file.js"
 @import "classes/tabs.js"
+@import "modules/test.js"
 
 
 const preview = {
