@@ -1,7 +1,7 @@
 <Data>
 	<Samples>
-		<i path="/cdn/sampels/pdf/sample-1.pdf" preview="/cdn/sampels/pdf/sample-1.jpg"/>
-		<i path="/cdn/sampels/pdf/sample-2.pdf" preview="/cdn/sampels/pdf/sample-2.jpg"/>
-		<i path="/cdn/sampels/pdf/sample-3.pdf" preview="/cdn/sampels/pdf/sample-3.jpg"/>
+		<i path="/cdn/samples/pdf/sample-1.pdf" preview="/cdn/samples/pdf/sample-1.jpg"/>
+		<i path="/cdn/samples/pdf/sample-2.pdf" preview="/cdn/samples/pdf/sample-2.jpg"/>
+		<i path="/cdn/samples/pdf/sample-3.pdf" preview="/cdn/samples/pdf/sample-3.jpg"/>
 	</Samples>
 </Data>
